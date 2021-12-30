@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -22,6 +22,8 @@ function Home() {
 
   const scrollRef = useRef<FlatList>(null);
 
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+
   const { questions } = useSelector((state: ApplicationState) => {
     const { data } = state.questions;
 
@@ -33,6 +35,25 @@ function Home() {
   useEffect(() => {
     dispatch(loadQuestions());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (questions?.length) {
+      scrollRef.current?.scrollToIndex({
+        index: currentQuestion,
+      });
+    }
+  }, [currentQuestion, questions?.length]);
+
+  function goToNextQuestion() {
+    setCurrentQuestion(oldQuestion => {
+      const nextQuestion = oldQuestion + 1;
+      const questionSize = (questions?.length || 0) - 1;
+
+      if (oldQuestion < questionSize) return nextQuestion;
+
+      return 0;
+    });
+  }
 
   return (
     <Container>
@@ -52,7 +73,9 @@ function Home() {
           renderItem={({ item: question }) => <Question {...question} />}
         />
 
-        <CTA>CHECK ANSWER</CTA>
+        <CTA disabled={!questions?.length} onPress={goToNextQuestion}>
+          CHECK ANSWER
+        </CTA>
       </Content>
     </Container>
   );
