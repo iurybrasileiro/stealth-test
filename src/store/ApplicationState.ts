@@ -1,5 +1,7 @@
+import { QuestionsState } from './reducers/questions/types';
+
 interface ApplicationState {
-  example: any[];
+  questions: QuestionsState;
 }
 
 export default ApplicationState;
