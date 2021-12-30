@@ -18,6 +18,10 @@ export default {
     primary: base.white,
   },
 
+  home: {
+    content: global.secondary,
+  },
+
   button: {
     default: {
       background: global.primary,
