@@ -11,6 +11,10 @@ const base = {
 export default {
   global,
 
+  text: {
+    primary: base.white,
+  },
+
   icon: {
     primary: base.white,
   },
