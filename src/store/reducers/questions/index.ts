@@ -13,6 +13,12 @@ const questions = createSlice({
   name: 'questions',
   initialState: INITIAL_STATE,
   reducers: {
+    updateQuestionsData(state, { payload }) {
+      return {
+        ...state,
+        data: payload,
+      };
+    },
     updateQuestionsLoading(
       state,
       { payload }: PayloadAction<Partial<Record<keyof Loading, boolean>>>,
@@ -29,4 +35,5 @@ const questions = createSlice({
 });
 
 export default questions.reducer;
-export const { updateQuestionsLoading } = questions.actions;
+export const { updateQuestionsData, updateQuestionsLoading } =
+  questions.actions;
