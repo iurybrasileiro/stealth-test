@@ -11,6 +11,8 @@ const base = {
 export default {
   global,
 
+  background: global.primary,
+
   text: {
     primary: base.white,
   },
