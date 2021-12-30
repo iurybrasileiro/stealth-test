@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>18136533567-0ri9kg7vdm5jru6f3um0bh2roqff9k4r.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.18136533567-0ri9kg7vdm5jru6f3um0bh2roqff9k4r</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAmfe9AtjyOm1fEiDMbype-r-8XjrLIAgw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>18136533567</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>dev.iurybrasileiro.stealth</string>
+	<key>PROJECT_ID</key>
+	<string>stealthtest-e1b57</string>
+	<key>STORAGE_BUCKET</key>
+	<string>stealthtest-e1b57.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:18136533567:ios:aca08de28e05e28c0c068a</string>
+</dict>
+</plist>

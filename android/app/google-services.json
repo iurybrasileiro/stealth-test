@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "18136533567",
+    "project_id": "stealthtest-e1b57",
+    "storage_bucket": "stealthtest-e1b57.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18136533567:android:369df96f60623f130c068a",
+        "android_client_info": {
+          "package_name": "dev.iurybrasileiro.stealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18136533567-pb09l7urncotp6ddm26913j6bah1345c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK4huSyrRWLdS_nPJgmEhJmL7knkLxBoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18136533567-pb09l7urncotp6ddm26913j6bah1345c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
