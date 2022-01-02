@@ -16,10 +16,15 @@ export default {
 
   text: {
     primary: base.white,
+    secondary: global.secondary,
   },
 
   home: {
     content: global.secondary,
+
+    option: {
+      background: base.white,
+    },
   },
 
   button: {

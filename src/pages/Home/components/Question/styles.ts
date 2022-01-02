@@ -22,6 +22,7 @@ export const PartailAnswer = styled.View`
   align-self: center;
 
   margin-top: 32px;
+  margin-bottom: 32px;
 `;
 
 export const PartailAnswerText = styled.Text`
@@ -47,4 +48,16 @@ export const AnswerOptionContainer = styled.View<IAnswerOptionContainerProps>`
   border-bottom-width: 1px;
   border-bottom-color: ${({ theme }) =>
     theme.colors.answerResponseContainer.border};
+`;
+
+export const OptionsContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  padding: 0px 16px;
+
+  margin-top: auto;
+  margin-bottom: auto;
 `;

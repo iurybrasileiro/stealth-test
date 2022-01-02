@@ -2,12 +2,14 @@ import React, { useCallback } from 'react';
 
 import { Question as QuestionProps } from '~/store/reducers/questions/types';
 
+import AnswerOption from './components/AnswerOption';
 import {
   Container,
   Title,
   PartailAnswer,
   PartailAnswerText,
   AnswerOptionContainer,
+  OptionsContainer,
 } from './styles';
 
 const DEFAULT_LETTER_QUATITY = 8;
@@ -17,6 +19,7 @@ function Question({
   highlight_word,
   partial_answer,
   correct_answer,
+  options,
 }: QuestionProps) {
   const partailAnswer = useCallback(() => {
     const splittedAnswer = partial_answer.split(' ');
@@ -34,6 +37,10 @@ function Question({
     });
   }, [correct_answer?.length, partial_answer]);
 
+  const renderOption = useCallback((option, index) => {
+    return <AnswerOption key={`${option}-${index}`}>{option}</AnswerOption>;
+  }, []);
+
   return (
     <Container>
       <Title
@@ -50,6 +57,8 @@ function Question({
       </Title>
 
       <PartailAnswer>{partailAnswer()}</PartailAnswer>
+
+      <OptionsContainer>{options.map(renderOption)}</OptionsContainer>
     </Container>
   );
 }
