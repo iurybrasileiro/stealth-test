@@ -5,6 +5,7 @@ export interface Loading {
 export interface Question {
   title: string;
   highlight_word: string;
+  correct_answer: string;
   partial_answer: string;
   options: string[];
 }

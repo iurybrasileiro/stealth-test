@@ -33,6 +33,10 @@ export default {
 
   activityIndicator: base.white,
 
+  answerResponseContainer: {
+    border: base.white,
+  },
+
   icon: {
     primary: base.white,
   },
