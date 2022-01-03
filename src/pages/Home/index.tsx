@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  createRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -33,6 +40,10 @@ function Home() {
     };
   });
 
+  const questionsRef = useMemo(() => {
+    return questions?.map(() => createRef());
+  }, [questions]);
+
   useEffect(() => {
     dispatch(loadQuestions());
   }, [dispatch]);
@@ -62,6 +73,13 @@ function Home() {
     return currentQuestion / questionsQuantity;
   }, [currentQuestion, questions?.length]);
 
+  const renderQuestion = useCallback(
+    ({ item: question, index }) => (
+      <Question ref={questionsRef?.[index]} {...question} />
+    ),
+    [questionsRef],
+  );
+
   return (
     <Container>
       <Header>
@@ -78,8 +96,8 @@ function Home() {
         <QuestionsList
           ref={scrollRef}
           data={questions}
-          keyExtractor={(_, index) => String(index)}
-          renderItem={({ item: question }) => <Question {...question} />}
+          keyExtractor={item => item.id}
+          renderItem={renderQuestion}
         />
 
         <CTA disabled={!questions?.length} onPress={goToNextQuestion}>
