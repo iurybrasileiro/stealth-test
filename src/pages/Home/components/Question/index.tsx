@@ -1,11 +1,4 @@
-import React, {
-  ForwardedRef,
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 
 import { Question as IQuestion } from '~/store/reducers/questions/types';
 import { getLongestWordInList } from '~/utils/helpers';
@@ -20,26 +13,19 @@ import {
   OptionsContainer,
 } from './styles';
 
-interface QuestionRef {
-  reset: () => void;
-}
-
 interface QuestionProps extends IQuestion {
   handleSelectOption: (option: string, id: string) => void;
 }
 
-function Question(
-  {
-    id,
-    title,
-    highlight_word,
-    partial_answer,
-    options,
-    handleSelectOption,
-    answer_selected,
-  }: QuestionProps,
-  ref: ForwardedRef<QuestionRef>,
-) {
+function Question({
+  id,
+  title,
+  highlight_word,
+  partial_answer,
+  options,
+  handleSelectOption,
+  answer_selected,
+}: QuestionProps) {
   const containerRef = useRef<any>(null);
   const anwerContainerRef = useRef<any>(null);
 
@@ -49,14 +35,6 @@ function Question(
     },
     [handleSelectOption, id],
   );
-
-  function handleReset() {
-    // setSelectedWord(null);
-  }
-
-  useImperativeHandle(ref, () => ({
-    reset: handleReset,
-  }));
 
   const getLongestWordSize = useMemo(() => {
     const longestWord = getLongestWordInList(options);
@@ -119,4 +97,4 @@ function Question(
   );
 }
 
-export default forwardRef(Question);
+export default Question;

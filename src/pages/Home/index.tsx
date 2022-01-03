@@ -1,5 +1,4 @@
 import React, {
-  createRef,
   useCallback,
   useEffect,
   useMemo,
@@ -41,10 +40,6 @@ function Home() {
     };
   });
 
-  const questionsRef = useMemo(() => {
-    return questions?.map(() => createRef());
-  }, [questions]);
-
   useEffect(() => {
     dispatch(loadQuestions());
   }, [dispatch]);
@@ -68,6 +63,18 @@ function Home() {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  function handleResetSelectedAnswer() {
+    setCurrentQuestion(0);
+
+    const updatedQuestions = questions?.map(question => ({
+      ...question,
+      answer_selected: undefined,
+    }));
+
+    dispatch(updateQuestionsData(updatedQuestions));
+  }
+
   const fillProgress = useMemo(() => {
     const questionsQuantity = (questions?.length || 0) - 1;
 
@@ -88,14 +95,10 @@ function Home() {
   );
 
   const renderQuestion = useCallback(
-    ({ item: question, index }) => (
-      <Question
-        ref={questionsRef?.[index]}
-        handleSelectOption={handleSelectOption}
-        {...question}
-      />
+    ({ item: question }) => (
+      <Question handleSelectOption={handleSelectOption} {...question} />
     ),
-    [handleSelectOption, questionsRef],
+    [handleSelectOption],
   );
 
   return (
