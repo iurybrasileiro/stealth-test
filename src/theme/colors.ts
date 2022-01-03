@@ -1,3 +1,5 @@
+import { darken } from 'polished';
+
 const global = {
   primary: '#169be5',
   secondary: '#0f6b9e',
@@ -37,6 +39,11 @@ export default {
   },
 
   activityIndicator: base.white,
+
+  progressBar: {
+    background: global.secondary,
+    content: darken(0.1, global.secondary),
+  },
 
   answerResponseContainer: {
     border: base.white,
