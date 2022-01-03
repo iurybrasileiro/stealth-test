@@ -9,6 +9,7 @@ export interface Question {
   correct_answer: string;
   partial_answer: string;
   options: string[];
+  answer_selected?: string;
 }
 
 export interface QuestionsState {

@@ -13,6 +13,7 @@ import Icon from '~/components/Icon';
 import iconhelper from '~/components/Icon/iconhelper';
 import ProgressBar from '~/components/ProgressBar';
 import ApplicationState from '~/store/ApplicationState';
+import { updateQuestionsData } from '~/store/reducers/questions';
 import { loadQuestions } from '~/store/reducers/questions/actions';
 
 import Question from './components/Question';
@@ -73,11 +74,28 @@ function Home() {
     return currentQuestion / questionsQuantity;
   }, [currentQuestion, questions?.length]);
 
+  const handleSelectOption = useCallback(
+    (text: string, id: string) => {
+      const updatedQuestions = questions?.map(question => {
+        if (question.id === id) return { ...question, answer_selected: text };
+
+        return question;
+      });
+
+      dispatch(updateQuestionsData(updatedQuestions));
+    },
+    [dispatch, questions],
+  );
+
   const renderQuestion = useCallback(
     ({ item: question, index }) => (
-      <Question ref={questionsRef?.[index]} {...question} />
+      <Question
+        ref={questionsRef?.[index]}
+        handleSelectOption={handleSelectOption}
+        {...question}
+      />
     ),
-    [questionsRef],
+    [handleSelectOption, questionsRef],
   );
 
   return (

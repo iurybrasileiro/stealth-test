@@ -5,10 +5,9 @@ import React, {
   useImperativeHandle,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 
-import { Question as QuestionProps } from '~/store/reducers/questions/types';
+import { Question as IQuestion } from '~/store/reducers/questions/types';
 import { getLongestWordInList } from '~/utils/helpers';
 
 import AnswerOption from './components/AnswerOption';
@@ -25,27 +24,34 @@ interface QuestionRef {
   reset: () => void;
 }
 
+interface QuestionProps extends IQuestion {
+  handleSelectOption: (option: string, id: string) => void;
+}
+
 function Question(
-  { title, highlight_word, partial_answer, options }: QuestionProps,
+  {
+    id,
+    title,
+    highlight_word,
+    partial_answer,
+    options,
+    handleSelectOption,
+    answer_selected,
+  }: QuestionProps,
   ref: ForwardedRef<QuestionRef>,
 ) {
   const containerRef = useRef<any>(null);
   const anwerContainerRef = useRef<any>(null);
 
-  const [selectedWord, setSelectedWord] = useState<string | null>();
-
-  const handleSelectItem = useCallback((text: string) => {
-    setSelectedWord(oldSelectedWord => {
-      if (oldSelectedWord === text) {
-        return null;
-      }
-
-      return text;
-    });
-  }, []);
+  const handleSelectItem = useCallback(
+    (text: string) => {
+      handleSelectOption(text, id);
+    },
+    [handleSelectOption, id],
+  );
 
   function handleReset() {
-    setSelectedWord(null);
+    // setSelectedWord(null);
   }
 
   useImperativeHandle(ref, () => ({
@@ -81,14 +87,14 @@ function Question(
       return (
         <AnswerOption
           answerRef={anwerContainerRef}
-          isSelected={selectedWord === option}
+          isSelected={answer_selected === option}
           onPress={handleSelectItem}
           key={`${option}-${index}`}>
           {option}
         </AnswerOption>
       );
     },
-    [handleSelectItem, selectedWord],
+    [handleSelectItem, answer_selected],
   );
 
   return (
