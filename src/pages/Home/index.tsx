@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Icon from '~/components/Icon';
 import iconhelper from '~/components/Icon/iconhelper';
+import ProgressBar from '~/components/ProgressBar';
 import ApplicationState from '~/store/ApplicationState';
 import { loadQuestions } from '~/store/reducers/questions/actions';
 
@@ -55,12 +56,20 @@ function Home() {
     });
   }
 
+  const fillProgress = useMemo(() => {
+    const questionsQuantity = (questions?.length || 0) - 1;
+
+    return currentQuestion / questionsQuantity;
+  }, [currentQuestion, questions?.length]);
+
   return (
     <Container>
       <Header>
         <TouchableOpacity activeOpacity={0.6}>
           <Icon name={iconhelper.caretLeft} />
         </TouchableOpacity>
+
+        <ProgressBar fill={fillProgress} />
       </Header>
 
       <Content>
