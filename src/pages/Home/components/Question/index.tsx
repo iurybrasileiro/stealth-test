@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { Question as QuestionProps } from '~/store/reducers/questions/types';
+import { getLongestWordInList } from '~/utils/helpers';
 
 import AnswerOption from './components/AnswerOption';
 import {
@@ -11,8 +12,6 @@ import {
   AnswerOptionContainer,
   OptionsContainer,
 } from './styles';
-
-const DEFAULT_LETTER_QUATITY = 8;
 
 function Question({
   title,
@@ -35,8 +34,10 @@ function Question({
     });
   }, []);
 
-  const getBiggisterWordSize = useMemo(() => {
-    return Math.max(...options.map(item => item.length));
+  const getLongestWordSize = useMemo(() => {
+    const longestWord = getLongestWordInList(options);
+
+    return longestWord.length;
   }, [options]);
 
   const partailAnswer = useCallback(() => {
@@ -44,17 +45,18 @@ function Question({
     const isPlaceToAnswerOption = /_/;
 
     return splittedAnswer.map(item => {
-      if (isPlaceToAnswerOption.test(item))
+      if (isPlaceToAnswerOption.test(item)) {
         return (
           <AnswerOptionContainer
             ref={anwerContainerRef}
-            lettersQuantity={getBiggisterWordSize || DEFAULT_LETTER_QUATITY}
+            lettersQuantity={getLongestWordSize}
           />
         );
+      }
 
       return <PartailAnswerText>{item}</PartailAnswerText>;
     });
-  }, [getBiggisterWordSize, partial_answer]);
+  }, [getLongestWordSize, partial_answer]);
 
   const renderOption = useCallback(
     (option, index) => {

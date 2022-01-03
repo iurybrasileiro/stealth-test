@@ -25,6 +25,8 @@ interface AnswerOptionProps {
   isSelected?: boolean;
 }
 
+const DOWN_OFFSET = 8;
+
 function AnswerOption({
   children,
   answerRef,
@@ -52,7 +54,7 @@ function AnswerOption({
         const py = rest[5];
 
         currentX.value = withTiming(containerX - px);
-        currentY.value = withTiming(containerY - 8 - py);
+        currentY.value = withTiming(containerY - DOWN_OFFSET - py);
       });
     });
   }, [answerRef, containerRef, currentX, currentY]);
@@ -98,7 +100,10 @@ function AnswerOption({
   return (
     <Animated.View style={animatedStyle}>
       <View ref={containerRef}>
-        <Container onLayout={handleOnLayout} onPress={handlePress}>
+        <Container
+          onLayout={handleOnLayout}
+          wordLength={children.length}
+          onPress={handlePress}>
           <Text>{children}</Text>
         </Container>
       </View>

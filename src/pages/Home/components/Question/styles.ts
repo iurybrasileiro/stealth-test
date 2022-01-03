@@ -2,6 +2,8 @@ import ParsedText from 'react-native-parsed-text';
 
 import styled from 'styled-components/native';
 
+import { OPTION_CONTAIER_OFFSET } from './components/AnswerOption/styles';
+
 export const Container = styled.View`
   width: ${({ theme }) => theme.metrics.window.width}px;
 
@@ -36,7 +38,8 @@ interface IAnswerOptionContainerProps {
 }
 
 export const AnswerOptionContainer = styled.View<IAnswerOptionContainerProps>`
-  width: ${({ lettersQuantity }) => 15 * lettersQuantity}px;
+  width: ${({ lettersQuantity }) =>
+    16 * lettersQuantity + OPTION_CONTAIER_OFFSET}px;
   height: 40px;
 
   margin: 0px 16px;
