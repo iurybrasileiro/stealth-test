@@ -35,12 +35,8 @@ interface IAnswerOptionContainerProps {
   lettersQuantity: number;
 }
 
-// This offset is 16 pixels for left space and 16 for right space
-const ANSWER_OPTION__CONTAINER_OFFSET = 32;
-
 export const AnswerOptionContainer = styled.View<IAnswerOptionContainerProps>`
-  width: ${({ lettersQuantity }) =>
-    16 * lettersQuantity + ANSWER_OPTION__CONTAINER_OFFSET}px;
+  width: ${({ lettersQuantity }) => 15 * lettersQuantity}px;
   height: 40px;
 
   margin: 0px 16px;

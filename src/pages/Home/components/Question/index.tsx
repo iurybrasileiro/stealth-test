@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import { Question as QuestionProps } from '~/store/reducers/questions/types';
 
@@ -18,9 +18,27 @@ function Question({
   title,
   highlight_word,
   partial_answer,
-  correct_answer,
   options,
 }: QuestionProps) {
+  const containerRef = useRef<any>(null);
+  const anwerContainerRef = useRef<any>(null);
+
+  const [selectedWord, setSelectedWord] = useState<string | null>();
+
+  const handleSelectItem = useCallback((text: string) => {
+    setSelectedWord(oldSelectedWord => {
+      if (oldSelectedWord === text) {
+        return null;
+      }
+
+      return text;
+    });
+  }, []);
+
+  const getBiggisterWordSize = useMemo(() => {
+    return Math.max(...options.map(item => item.length));
+  }, [options]);
+
   const partailAnswer = useCallback(() => {
     const splittedAnswer = partial_answer.split(' ');
     const isPlaceToAnswerOption = /_/;
@@ -29,20 +47,32 @@ function Question({
       if (isPlaceToAnswerOption.test(item))
         return (
           <AnswerOptionContainer
-            lettersQuantity={correct_answer?.length || DEFAULT_LETTER_QUATITY}
+            ref={anwerContainerRef}
+            lettersQuantity={getBiggisterWordSize || DEFAULT_LETTER_QUATITY}
           />
         );
 
       return <PartailAnswerText>{item}</PartailAnswerText>;
     });
-  }, [correct_answer?.length, partial_answer]);
+  }, [getBiggisterWordSize, partial_answer]);
 
-  const renderOption = useCallback((option, index) => {
-    return <AnswerOption key={`${option}-${index}`}>{option}</AnswerOption>;
-  }, []);
+  const renderOption = useCallback(
+    (option, index) => {
+      return (
+        <AnswerOption
+          answerRef={anwerContainerRef}
+          isSelected={selectedWord === option}
+          onPress={handleSelectItem}
+          key={`${option}-${index}`}>
+          {option}
+        </AnswerOption>
+      );
+    },
+    [handleSelectItem, selectedWord],
+  );
 
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Title
         parse={[
           {
