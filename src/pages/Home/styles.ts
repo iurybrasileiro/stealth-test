@@ -2,7 +2,6 @@ import { FlatList } from 'react-native';
 
 import styled from 'styled-components/native';
 
-import Button from '~/components/Button';
 import { Question } from '~/store/reducers/questions/types';
 
 export const Container = styled.View`
@@ -32,7 +31,6 @@ export const Content = styled.View`
   border-top-right-radius: 32px;
 
   padding-top: 16px;
-  padding-bottom: ${({ theme }) => theme.metrics.bottomSpace + 16}px;
 `;
 
 export const Title = styled.Text`
@@ -45,9 +43,3 @@ export const QuestionsList: new () => FlatList<Question> =
     horizontal: true,
     scrollEnabled: false,
   })`` as any;
-
-export const CTA = styled(Button)`
-  width: ${({ theme }) => theme.metrics.window.width - 32}px;
-
-  margin-left: 16px;
-`;

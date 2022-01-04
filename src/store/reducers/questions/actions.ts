@@ -12,7 +12,12 @@ export function loadQuestions(): IThunkAction {
     try {
       const response = await firestore().collection('questions').get();
 
-      const questions = response.docs.map(item => item.data());
+      const questions = response.docs.map(item => {
+        return {
+          id: item.id,
+          ...item.data(),
+        };
+      });
 
       dispatch(updateQuestionsData(questions));
     } catch {

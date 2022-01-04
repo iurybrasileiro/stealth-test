@@ -10,22 +10,28 @@ interface ButtonProps {
   onPress?: ((event: GestureResponderEvent) => void) | undefined;
   loading?: boolean;
   disabled?: boolean;
+  status?: boolean;
 }
 
 function Button({
   children,
   loading = false,
   disabled = false,
+  status,
   ...rest
 }: ButtonProps) {
   const theme = useTheme();
 
   return (
-    <Container {...rest} activeOpacity={0.6} disabled={loading || disabled}>
+    <Container
+      status={status}
+      {...rest}
+      activeOpacity={0.6}
+      disabled={loading || disabled}>
       {loading ? (
         <ActivityIndicator color={theme.colors.activityIndicator} />
       ) : (
-        <Text>{children}</Text>
+        <Text status={status}>{children}</Text>
       )}
     </Container>
   );
