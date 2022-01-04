@@ -10,6 +10,7 @@ export interface Question {
   partial_answer: string;
   options: string[];
   answer_selected?: string;
+  isCorrect?: boolean;
 }
 
 export interface QuestionsState {

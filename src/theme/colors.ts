@@ -4,6 +4,8 @@ const global = {
   primary: '#169be5',
   secondary: '#0f6b9e',
   tertiary: '#778ca0',
+  quaternary: '#ff7987',
+  quiternary: '#01deea',
 };
 
 const base = {
@@ -26,6 +28,12 @@ export default {
 
     option: {
       background: base.white,
+    },
+
+    footer: {
+      default: 'transparent',
+      error: global.quaternary,
+      success: global.quiternary,
     },
   },
 

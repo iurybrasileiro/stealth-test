@@ -15,15 +15,9 @@ import ApplicationState from '~/store/ApplicationState';
 import { updateQuestionsData } from '~/store/reducers/questions';
 import { loadQuestions } from '~/store/reducers/questions/actions';
 
+import Footer from './components/Footer';
 import Question from './components/Question';
-import {
-  Container,
-  Header,
-  Content,
-  Title,
-  QuestionsList,
-  CTA,
-} from './styles';
+import { Container, Header, Content, Title, QuestionsList } from './styles';
 
 function Home() {
   const dispatch = useDispatch();
@@ -52,28 +46,9 @@ function Home() {
     }
   }, [currentQuestion, questions?.length]);
 
-  function goToNextQuestion() {
-    setCurrentQuestion(oldQuestion => {
-      const nextQuestion = oldQuestion + 1;
-      const questionSize = (questions?.length || 0) - 1;
-
-      if (oldQuestion < questionSize) return nextQuestion;
-
-      return 0;
-    });
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function handleResetSelectedAnswer() {
-    setCurrentQuestion(0);
-
-    const updatedQuestions = questions?.map(question => ({
-      ...question,
-      answer_selected: undefined,
-    }));
-
-    dispatch(updateQuestionsData(updatedQuestions));
-  }
+  const currentQuestionData = useMemo(() => {
+    return questions?.[currentQuestion];
+  }, [currentQuestion, questions]);
 
   const fillProgress = useMemo(() => {
     const questionsQuantity = (questions?.length || 0) - 1;
@@ -121,9 +96,10 @@ function Home() {
           renderItem={renderQuestion}
         />
 
-        <CTA disabled={!questions?.length} onPress={goToNextQuestion}>
-          CHECK ANSWER
-        </CTA>
+        <Footer
+          currentQuestion={currentQuestionData}
+          setCurrentQuestion={setCurrentQuestion}
+        />
       </Content>
     </Container>
   );
