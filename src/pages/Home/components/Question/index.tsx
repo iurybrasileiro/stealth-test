@@ -64,6 +64,7 @@ function Question({
       if (isPlaceToAnswerOption.test(item)) {
         return (
           <AnswerOptionContainer
+            key={`${id}-${item}`}
             ref={anwerContainerRef}
             lettersQuantity={getLongestWordSize}
           />
@@ -71,7 +72,7 @@ function Question({
       }
 
       return (
-        <DottedContainer>
+        <DottedContainer key={`${id}-${item}`}>
           <Tooltip
             actionType={translations?.[item] ? 'press' : 'none'}
             overlayColor={theme.colors.tooltip.overlay}
@@ -84,6 +85,7 @@ function Question({
     });
   }, [
     getLongestWordSize,
+    id,
     partial_answer,
     theme.colors.tooltip.background,
     theme.colors.tooltip.overlay,
