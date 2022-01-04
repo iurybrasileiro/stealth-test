@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 
 import Icon from '~/components/Icon';
 import iconhelper from '~/components/Icon/iconhelper';
@@ -14,6 +14,7 @@ import ProgressBar from '~/components/ProgressBar';
 import ApplicationState from '~/store/ApplicationState';
 import { updateQuestionsData } from '~/store/reducers/questions';
 import { loadQuestions } from '~/store/reducers/questions/actions';
+import { loadTranslations } from '~/store/reducers/translations/actions';
 
 import Footer from './components/Footer';
 import Question from './components/Question';
@@ -35,7 +36,10 @@ function Home() {
   });
 
   useEffect(() => {
-    dispatch(loadQuestions());
+    batch(() => {
+      dispatch(loadTranslations());
+      dispatch(loadQuestions());
+    });
   }, [dispatch]);
 
   useEffect(() => {

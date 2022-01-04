@@ -1,4 +1,4 @@
-import { darken } from 'polished';
+import { darken, transparentize } from 'polished';
 
 const global = {
   primary: '#169be5',
@@ -63,6 +63,16 @@ export default {
 
   answerResponseContainer: {
     border: base.white,
+  },
+
+  dottedContainer: {
+    color: base.white,
+  },
+
+  tooltip: {
+    overlay: transparentize(0.5, base.black),
+    background: base.white,
+    text: global.secondary,
   },
 
   icon: {

@@ -1,5 +1,11 @@
 import React, { useCallback, useMemo, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
+import Tooltip from 'rn-tooltip';
+import { useTheme } from 'styled-components/native';
+
+import DottedContainer from '~/components/DottedContainer';
+import ApplicationState from '~/store/ApplicationState';
 import { Question as IQuestion } from '~/store/reducers/questions/types';
 import { getLongestWordInList } from '~/utils/helpers';
 
@@ -11,6 +17,7 @@ import {
   PartailAnswerText,
   AnswerOptionContainer,
   OptionsContainer,
+  TootipText,
 } from './styles';
 
 interface QuestionProps extends IQuestion {
@@ -27,8 +34,14 @@ function Question({
   answer_selected,
   isCorrect,
 }: QuestionProps) {
+  const theme = useTheme();
+
   const containerRef = useRef<any>(null);
   const anwerContainerRef = useRef<any>(null);
+
+  const translations = useSelector(
+    (state: ApplicationState) => state.translations.data,
+  );
 
   const handleSelectItem = useCallback(
     (text: string) => {
@@ -57,9 +70,25 @@ function Question({
         );
       }
 
-      return <PartailAnswerText>{item}</PartailAnswerText>;
+      return (
+        <DottedContainer>
+          <Tooltip
+            actionType={translations?.[item] ? 'press' : 'none'}
+            overlayColor={theme.colors.tooltip.overlay}
+            backgroundColor={theme.colors.tooltip.background}
+            popover={<TootipText>{translations?.[item] || ''}</TootipText>}>
+            <PartailAnswerText>{item}</PartailAnswerText>
+          </Tooltip>
+        </DottedContainer>
+      );
     });
-  }, [getLongestWordSize, partial_answer]);
+  }, [
+    getLongestWordSize,
+    partial_answer,
+    theme.colors.tooltip.background,
+    theme.colors.tooltip.overlay,
+    translations,
+  ]);
 
   const renderOption = useCallback(
     (option, index) => {

@@ -31,6 +31,7 @@ export const PartailAnswerText = styled.Text`
   font-size: ${({ theme }) => theme.font.size(18)}px;
 
   margin-right: 4px;
+  margin-bottom: 12px;
 `;
 
 interface IAnswerOptionContainerProps {
@@ -59,4 +60,9 @@ export const OptionsContainer = styled.View`
 
   margin-top: auto;
   margin-bottom: auto;
+`;
+
+export const TootipText = styled.Text`
+  font-weight: bold;
+  color: ${({ theme }) => theme.colors.tooltip.text};
 `;
