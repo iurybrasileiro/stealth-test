@@ -23,6 +23,7 @@ interface AnswerOptionProps {
   answerRef: RefObject<View | undefined>;
   onPress: (text: string) => void;
   isSelected?: boolean;
+  alreadyVerified: boolean;
 }
 
 const DOWN_OFFSET = 8;
@@ -32,6 +33,7 @@ function AnswerOption({
   answerRef,
   onPress,
   isSelected = false,
+  alreadyVerified,
 }: AnswerOptionProps) {
   const containerRef = useRef<View>(null);
 
@@ -101,6 +103,7 @@ function AnswerOption({
     <Animated.View style={animatedStyle}>
       <View ref={containerRef}>
         <Container
+          disabled={alreadyVerified}
           onLayout={handleOnLayout}
           wordLength={children.length}
           onPress={handlePress}>

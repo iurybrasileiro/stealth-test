@@ -12,6 +12,13 @@ export const Container = styled.View`
   border-top-right-radius: 32px;
 `;
 
+export const AnswerResponseContainer = styled.View`
+  height: 40px;
+  align-self: flex-start;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const AnswerResponse = styled.Text`
   margin-bottom: 16px;
   margin-left: 16px;

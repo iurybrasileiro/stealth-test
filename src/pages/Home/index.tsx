@@ -97,6 +97,8 @@ function Home() {
         />
 
         <Footer
+          currentQuestionIndex={currentQuestion}
+          questionsQuantity={questions ? questions.length - 1 : 0}
           currentQuestion={currentQuestionData}
           setCurrentQuestion={setCurrentQuestion}
         />

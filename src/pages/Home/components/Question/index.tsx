@@ -25,6 +25,7 @@ function Question({
   options,
   handleSelectOption,
   answer_selected,
+  isCorrect,
 }: QuestionProps) {
   const containerRef = useRef<any>(null);
   const anwerContainerRef = useRef<any>(null);
@@ -66,13 +67,14 @@ function Question({
         <AnswerOption
           answerRef={anwerContainerRef}
           isSelected={answer_selected === option}
+          alreadyVerified={isCorrect !== undefined}
           onPress={handleSelectItem}
           key={`${option}-${index}`}>
           {option}
         </AnswerOption>
       );
     },
-    [handleSelectItem, answer_selected],
+    [answer_selected, handleSelectItem, isCorrect],
   );
 
   return (

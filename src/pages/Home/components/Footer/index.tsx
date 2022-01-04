@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useMemo } from 'react';
+import { Alert } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useTheme } from 'styled-components/native';
@@ -7,14 +8,27 @@ import ApplicationState from '~/store/ApplicationState';
 import { updateQuestionsData } from '~/store/reducers/questions';
 import { Question } from '~/store/reducers/questions/types';
 
-import { Container, AnswerResponse, AnswerResponseBolder, CTA } from './styles';
+import {
+  Container,
+  AnswerResponse,
+  AnswerResponseBolder,
+  CTA,
+  AnswerResponseContainer,
+} from './styles';
 
 interface FooterProps {
   currentQuestion?: Question;
+  questionsQuantity: number;
+  currentQuestionIndex: number;
   setCurrentQuestion: Dispatch<SetStateAction<number>>;
 }
 
-function Footer({ currentQuestion, setCurrentQuestion }: FooterProps) {
+function Footer({
+  currentQuestionIndex,
+  currentQuestion,
+  setCurrentQuestion,
+  questionsQuantity,
+}: FooterProps) {
   const dispatch = useDispatch();
   const theme = useTheme();
 
@@ -69,6 +83,13 @@ function Footer({ currentQuestion, setCurrentQuestion }: FooterProps) {
   function handleResetOrNext() {
     if (currentQuestion && !currentQuestion?.isCorrect) {
       handleResetSelectedAnswer();
+    } else if (currentQuestionIndex === questionsQuantity) {
+      Alert.alert('Good job', 'You got all the questions right.', [
+        {
+          onPress: handleResetSelectedAnswer,
+          text: 'Okey',
+        },
+      ]);
     } else {
       goToNextQuestion();
     }
@@ -110,22 +131,25 @@ function Footer({ currentQuestion, setCurrentQuestion }: FooterProps) {
 
   return (
     <Container style={{ backgroundColor: footerColor }}>
-      {currentQuestion?.isCorrect !== undefined &&
-      currentQuestion?.isCorrect ? (
-        <AnswerResponseBolder>Great job!</AnswerResponseBolder>
-      ) : null}
+      <AnswerResponseContainer>
+        {currentQuestion?.isCorrect !== undefined &&
+        currentQuestion?.isCorrect ? (
+          <AnswerResponseBolder>Great job!</AnswerResponseBolder>
+        ) : null}
 
-      {currentQuestion?.isCorrect !== undefined &&
-      !currentQuestion?.isCorrect ? (
-        <AnswerResponse>
-          <AnswerResponseBolder>Answer: </AnswerResponseBolder>
-          {currentQuestion?.correct_answer}
-        </AnswerResponse>
-      ) : null}
+        {currentQuestion?.isCorrect !== undefined &&
+        !currentQuestion?.isCorrect ? (
+          <AnswerResponse>
+            <AnswerResponseBolder>Answer: </AnswerResponseBolder>
+            {currentQuestion?.correct_answer}
+          </AnswerResponse>
+        ) : null}
+      </AnswerResponseContainer>
 
       <CTA
         disabled={!questions?.length || !currentQuestion?.answer_selected}
-        onPress={ctaAction}>
+        onPress={ctaAction}
+        status={currentQuestion?.isCorrect}>
         {ctaText}
       </CTA>
     </Container>

@@ -44,6 +44,14 @@ export default {
     disabled: {
       background: global.tertiary,
     },
+    success: {
+      background: base.white,
+      text: global.quiternary,
+    },
+    error: {
+      background: base.white,
+      text: global.quaternary,
+    },
   },
 
   activityIndicator: base.white,
